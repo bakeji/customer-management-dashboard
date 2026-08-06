@@ -2,12 +2,20 @@
 
 import { Bell, ChevronDown } from "lucide-react";
 
-export default function Topbar() {
+export default function Topbar(
+    {
+         title,
+  subtitle,
+}: {
+  title: string;
+  subtitle: string;
+    }
+) {
   return (
     <div className="mb-8 flex items-start justify-between gap-4">
       <div>
-        <h1 className="text-2xl font-semibold text-slate-900">Customer Dashboard</h1>
-        <p className="mt-1 text-sm text-slate-500">Manage and monitor your business customers.</p>
+        <h1 className="text-2xl font-semibold text-slate-900">{title}</h1>
+        <p className="mt-1 text-sm text-slate-500">{subtitle}</p>
       </div>
 
       <div className="flex shrink-0 items-center gap-4">
