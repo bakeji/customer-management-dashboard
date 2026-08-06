@@ -1,13 +1,17 @@
 import {
   addDoc,
   collection,
+  deleteDoc,
+  doc,
   getDocs,
   query,
   serverTimestamp,
+  updateDoc,
   where,
 } from "firebase/firestore";
 import { db } from "./firebase";
 import type { CustomerFormValues } from "./validation";
+import { CustomerStatus } from "./types";
 
 const CUSTOMERS_COLLECTION = "customers";
 
@@ -57,5 +61,18 @@ export async function addCustomer(data: CustomerFormValues) {
     createdAt: serverTimestamp(),
   });
 }
+
+export async function updateCustomer(id: string, data: CustomerFormValues) {
+  return updateDoc(doc(db, CUSTOMERS_COLLECTION, id), { ...data });
+}
+
+export async function updateCustomerStatus(id: string, status: CustomerStatus) {
+  return updateDoc(doc(db, CUSTOMERS_COLLECTION, id), { status });
+}
+
+export async function deleteCustomer(id: string) {
+  return deleteDoc(doc(db, CUSTOMERS_COLLECTION, id));
+}
+
 
 export { CUSTOMERS_COLLECTION };

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { CUSTOMERS_COLLECTION } from "@/lib/customers";
@@ -55,5 +55,33 @@ export function useCustomers() {
     return () => unsubscribe();
   }, []);
 
-  return { customers, loading, error };
+  const stats = useMemo(() => {
+  return customers.reduce(
+    (acc, customer) => {
+      acc.all++;
+
+      switch (customer.status) {
+        case "Active":
+          acc.active++;
+          break;
+        case "Pending":
+          acc.pending++;
+          break;
+        case "Inactive":
+          acc.inactive++;
+          break;
+      }
+
+      return acc;
+    },
+    {
+      all: 0,
+      active: 0,
+      pending: 0,
+      inactive: 0,
+    }
+  );
+}, [customers]);
+
+  return { customers, loading, error, stats };
 }
