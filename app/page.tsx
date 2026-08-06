@@ -8,6 +8,10 @@ import { mockCustomers, dashboardStats } from "@/lib/mock-data";
 import CustomerFilters from "@/components/CustomerFilters";
 import { useMemo, useState } from "react";
 import { businessTypes, industries } from "@/lib/validation";
+import { LoadingState } from "@/components/LoadingState";
+import { ErrorState } from "@/components/errorState";
+import CustomerTable from "@/components/customerTables";
+import Pagination from "@/components/Pagination";
 type LoadState = "ready" | "loading" | "error";
 
 export default function DashboardPage() {
@@ -114,8 +118,30 @@ export default function DashboardPage() {
           businessTypeOptions={[...businessTypes]}
           industryOptions={[...industries]}
         />
+
+           </div>
+
+
+            {loadState === "loading" && <LoadingState />}
+        {loadState === "error" && <ErrorState onRetry={() => setLoadState("ready")} />}
+        {loadState === "ready" && (
+          <>
+            <CustomerTable customers={filtered} />
+            <Pagination
+              currentPage={page}
+              totalPages={totalPages}
+              totalItems={totalItems}
+              pageSize={pageSize}
+              onPageChange={setPage}
+              onPageSizeChange={(size) => {
+                setPageSize(size);
+                setPage(1);
+              }}
+            />
+          </>
+        )}
        
-      </div>
+   
 
     </DashboardShell>
   );
