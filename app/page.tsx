@@ -87,7 +87,7 @@ export default function DashboardPage() {
         />
         <StatCard
           icon={UserPlus}
-          label="New This Month"
+          label="Pending Customers"
           value={dashboardStats.newThisMonth.toLocaleString()}
           helper={`${dashboardStats.newThisMonthGrowth}% vs last month`}
           tone="violet"
