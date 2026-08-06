@@ -12,6 +12,8 @@ import { LoadingState } from "@/components/LoadingState";
 import { ErrorState } from "@/components/errorState";
 import CustomerTable from "@/components/customerTables";
 import Pagination from "@/components/Pagination";
+import CustomersPage from "./customers/page";
+import AllCustomers from "@/components/allCustomers";
 type LoadState = "ready" | "loading" | "error";
 
 export default function DashboardPage() {
@@ -49,18 +51,18 @@ export default function DashboardPage() {
     setBusinessType("All Types");
     setIndustry("All Industries");
     setPage(1);
+    alert('clicked')
   };
-
 
 
 
 
   return (
     <DashboardShell>
-      <Topbar />
+      <Topbar title="Customer Dashboard" subtitle="Manage and monitor your business customers." />
 
       {/* stat cards */}
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid mb-8 grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <StatCard
           icon={Users}
           label="Total Customers"
@@ -87,59 +89,12 @@ export default function DashboardPage() {
           icon={UserPlus}
           label="New This Month"
           value={dashboardStats.newThisMonth.toLocaleString()}
-          helper={`↑ ${dashboardStats.newThisMonthGrowth}% vs last month`}
+          helper={`${dashboardStats.newThisMonthGrowth}% vs last month`}
           tone="violet"
         />
+</div>
 
-
-        <CustomerFilters
-          search={search}
-          onSearchChange={(value) => {
-            setSearch(value);
-            setPage(1);
-          }}
-          status={status}
-          onStatusChange={(value) => {
-            setStatus(value);
-            setPage(1);
-          }}
-          businessType={businessType}
-          onBusinessTypeChange={(value) => {
-            setBusinessType(value);
-            setPage(1);
-          }}
-          industry={industry}
-          onIndustryChange={(value) => {
-            setIndustry(value);
-            setPage(1);
-          }}
-          onClearAll={handleClearAll}
-          statusOptions={["Active", "Pending", "Inactive"]}
-          businessTypeOptions={[...businessTypes]}
-          industryOptions={[...industries]}
-        />
-
-           </div>
-
-
-            {loadState === "loading" && <LoadingState />}
-        {loadState === "error" && <ErrorState onRetry={() => setLoadState("ready")} />}
-        {loadState === "ready" && (
-          <>
-            <CustomerTable customers={filtered} />
-            <Pagination
-              currentPage={page}
-              totalPages={totalPages}
-              totalItems={totalItems}
-              pageSize={pageSize}
-              onPageChange={setPage}
-              onPageSizeChange={(size) => {
-                setPageSize(size);
-                setPage(1);
-              }}
-            />
-          </>
-        )}
+<AllCustomers />
        
    
 
