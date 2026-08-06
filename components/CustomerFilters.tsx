@@ -33,7 +33,7 @@ export default function CustomerFilters({
   industryOptions,
 }: CustomerFiltersProps) {
   return (
-    <div className="border-b border-slate-100 p-5">
+    <div className="border-b border-slate-100 p-5 w-full">
       <div className="flex flex-col gap-3 sm:flex-row">
         <div className="relative flex-1">
           <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
@@ -46,10 +46,6 @@ export default function CustomerFilters({
           />
         </div>
 
-        <button className="flex items-center gap-2 rounded-lg border border-slate-200 px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50">
-          <SlidersHorizontal className="h-4 w-4" />
-          Filters
-        </button>
 
         <Link
           href="/register"
@@ -76,8 +72,8 @@ export default function CustomerFilters({
             options={["All Industries", ...industryOptions]}
           />
           <button
-            onClick={onClearAll}
-            className="mb-0.5 flex shrink-0 items-center gap-1.5 text-sm font-medium text-blue-600 hover:text-blue-700"
+            onClick={()=>onClearAll()}
+            className="mb-0.5 cursor-pointer flex shrink-0 items-center gap-1.5 text-sm font-medium text-blue-600 hover:text-blue-700"
           >
             <RotateCcw className="h-3.5 w-3.5" />
             Clear all

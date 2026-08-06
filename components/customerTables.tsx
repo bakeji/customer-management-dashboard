@@ -32,20 +32,15 @@ export default function CustomerTable({ customers }: { customers: Customer[] }) 
     <div className="overflow-x-auto">
       <table className="w-full min-w-225 text-left text-sm">
         <thead>
-          <tr className="border-b border-slate-100 text-xs font-medium uppercase tracking-wide text-slate-400">
-            <th className="px-5 py-3">
-              <span className="flex items-center gap-1">
-                Business Name
-                <ChevronUp className="h-3.5 w-3.5" />
-              </span>
-            </th>
-            <th className="px-5 py-3">Business Type</th>
-            <th className="px-5 py-3">Industry</th>
-            <th className="px-5 py-3">Contact Person</th>
-            <th className="px-5 py-3">Phone</th>
-            <th className="px-5 py-3">Email</th>
-            <th className="px-5 py-3">Status</th>
-            <th className="px-5 py-3 text-right">Actions</th>
+          <tr className="border-b  border-slate-100 text-xs font-medium uppercase tracking-wide text-slate-400">
+            <th className="px-3 py-3"> Business Name</th>
+            <th className="px-3 py-3">Business Type</th>
+            <th className="px-3 py-3">Industry</th>
+            <th className="px-3 py-3">Contact Person</th>
+            <th className="px-3 py-3">Phone</th>
+            <th className="px-3 py-3">Email</th>
+            <th className="px-3 py-3">Status</th>
+            <th className="px-3 py-3 text-right">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -73,9 +68,6 @@ export default function CustomerTable({ customers }: { customers: Customer[] }) 
               </td>
               <td className="px-5 py-4">
                 <span className="flex items-center justify-end gap-1 text-slate-400">
-                  <button aria-label="View customer" className="rounded-md p-1.5 hover:bg-slate-100 hover:text-slate-600">
-                    <Eye className="h-4 w-4" />
-                  </button>
                   <button aria-label="More actions" className="rounded-md p-1.5 hover:bg-slate-100 hover:text-slate-600">
                     <MoreVertical className="h-4 w-4" />
                   </button>
