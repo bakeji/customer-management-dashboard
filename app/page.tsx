@@ -14,6 +14,7 @@ import CustomerTable from "@/components/customerTables";
 import Pagination from "@/components/Pagination";
 import CustomersPage from "./customers/page";
 import AllCustomers from "@/components/allCustomers";
+import { useCustomers } from "@/hooks/useCustomers";
 type LoadState = "ready" | "loading" | "error";
 
 export default function DashboardPage() {
@@ -25,6 +26,8 @@ export default function DashboardPage() {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(5);
   const [loadState, setLoadState] = useState<LoadState>("ready");
+
+  const {stats} = useCustomers()
 
   const filtered = useMemo(() => {
     return mockCustomers.filter((customer) => {
@@ -45,15 +48,6 @@ export default function DashboardPage() {
   const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
 
 
-  const handleClearAll = () => {
-    setSearch("");
-    setStatus("All Statuses");
-    setBusinessType("All Types");
-    setIndustry("All Industries");
-    setPage(1);
-    alert('clicked')
-  };
-
 
 
 
@@ -66,7 +60,7 @@ export default function DashboardPage() {
         <StatCard
           icon={Users}
           label="Total Customers"
-          value={dashboardStats.total.toLocaleString()}
+          value={stats.all.toLocaleString()}
           helper="All time"
           tone="blue"
         />
@@ -74,22 +68,22 @@ export default function DashboardPage() {
          <StatCard
           icon={UserCheck}
           label="Active Customers"
-          value={dashboardStats.active.toLocaleString()}
-          helper={`${((dashboardStats.active / dashboardStats.total) * 100).toFixed(1)}% of total`}
+          value={stats.active.toLocaleString()}
+          helper={ stats.active? `${((stats.active / stats.all) * 100).toFixed(1)}% of total`: ""}
           tone="green"
         />
         <StatCard
           icon={UserX}
           label="Inactive Customers"
-          value={dashboardStats.inactive.toLocaleString()}
-          helper={`${((dashboardStats.inactive / dashboardStats.total) * 100).toFixed(1)}% of total`}
+          value={stats.inactive.toLocaleString()}
+          helper={ stats.inactive? `${((stats.inactive / stats.all) * 100).toFixed(1)}% of total` : ""}
           tone="amber"
         />
         <StatCard
           icon={UserPlus}
           label="Pending Customers"
-          value={dashboardStats.newThisMonth.toLocaleString()}
-          helper={`${dashboardStats.newThisMonthGrowth}% vs last month`}
+          value={stats.pending.toLocaleString()}
+          helper={ stats.pending?  `${((stats.pending / stats.all) * 100).toFixed(1)}% of total`  : ""  }
           tone="violet"
         />
 </div>
