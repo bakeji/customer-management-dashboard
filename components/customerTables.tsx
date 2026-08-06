@@ -5,6 +5,9 @@ import Link from "next/link";
 import type { Customer } from "@/lib/types";
 import StatusBadge from "@/components/StatusBadge"
 import { EmptyState } from "./EmptyState";
+import CustomerActionsMenu from "./actionMenu";
+import { useState } from "react";
+import EditCustomerModal from "./editCustomerModal";
 
 function initials(name: string) {
   return name
@@ -24,6 +27,8 @@ const avatarTones = [
 ];
 
 export default function CustomerTable({ customers }: { customers: Customer[] }) {
+    const [editingCustomer, setEditingCustomer] = useState<Customer | null>(null);
+
   if (customers.length === 0) {
     return <EmptyState />;
   }
@@ -68,15 +73,18 @@ export default function CustomerTable({ customers }: { customers: Customer[] }) 
               </td>
               <td className="px-5 py-4">
                 <span className="flex items-center justify-end gap-1 text-slate-400">
-                  <button aria-label="More actions" className="rounded-md p-1.5 hover:bg-slate-100 hover:text-slate-600">
-                    <MoreVertical className="h-4 w-4" />
-                  </button>
-                </span>
+                    <CustomerActionsMenu customer={customer} onEdit={setEditingCustomer} />
+                  </span>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+
+
+        {editingCustomer && (
+        <EditCustomerModal customer={editingCustomer} onClose={() => setEditingCustomer(null)} />
+      )}
     </div>
   );
 }

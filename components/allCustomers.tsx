@@ -1,8 +1,6 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import DashboardShell from "@/components/dashboardshell";
-import Topbar from "@/components/Topbar";
 import CustomerFilters from "@/components/CustomerFilters";
 import CustomerTable from "@/components/customerTables"
 import Pagination from "@/components/Pagination";
