@@ -25,7 +25,7 @@ export default function StatCard({
   const styles = toneStyles[tone];
 
   return (
-    <div className="rounded-2xl border flex flex-col justify-center items-center border-slate-200 bg-white p-5">
+    <div className="rounded-2xl border hover:shadow-lg flex flex-col justify-center items-center border-slate-200 bg-white p-5">
       <div className="flex items-start justify-between">
         <span className={`flex h-11 w-11 items-center justify-center rounded-full ${styles.bg} ${styles.text}`}>
           <Icon className="h-5 w-5" />
